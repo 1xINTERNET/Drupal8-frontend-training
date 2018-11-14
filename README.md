@@ -1,28 +1,33 @@
-# 6. Using twig for frontend
+# 7. Modifying attributes in a theme file
 
-We can do a lot of interesting things with twig.
+Sometimes we need to preprocess variables before rendering them to twig.
 
-## 6.1 Using twig variables
+## 7.1 Adding a paragraph preprocess function
 ```
-# Let us play with some variables in /node/1
-# Let us overwrite that template for demo purposes
-cd web/themes/custom/blog/templates
-cp ../../../../core/modules/node/templates/node.html.twig node--1.html.twig
-drush cr
-# What is common twig syntax?
-{{ print something }}
-{% do something %}
-{# a comment #}
+# Open the blog.theme file
+Add the following snippet
+```
 
-
+```
+/**
+ * Implements hook_preprocess_paragraph().
+ */
+function blog_preprocess_paragraph(&$variables) {
+  // Preprocess two column text paragraph.
+  drupal_set_message(print_r(array_keys($variables), true));
+  drupal_set_message(print_r(array_keys($variables['content']), true));
+  $type = $variables['paragraph']->getType();
+  drupal_set_message($type);
+  if ($type == 'two_column_text') {
+    $variables['content']['message'] = t('Hello World');
+  }
+}
 ```
 
 ## Remarks
 
 ```
- - Overriding templates by ID is never a good idea, we do this for demo purposes.
-   As these can change per environment.
- - See https://www.drupal.org/docs/8/theming/twig/discovering-and-inspecting-variables-in-twig-templates
+ - See https://www.drupal.org/docs/8/theming-drupal-8/modifying-attributes-in-a-theme-file
 ```
 
 ---
@@ -36,7 +41,7 @@ cd htdocs/web
 ### I can not follow anymore
 
 ```
-git checkout 6
+git checkout 7
 docker-compose exec php bash
 cd htdocs
 composer install
