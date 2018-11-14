@@ -1,23 +1,43 @@
-# 1. Basic setup
+# 2. Creating the subtheme based on Bootstrap
 
-We need some basic contrib modules and the boostrap contrib theme to start our project.
+We need to create a subtheme from the contrib Bootstrap theme we just downloaded.
 
-## 1.1 Installation of useful modules
+## 1.1 Creating the subtheme
 ```
-# Install the admin_toolbar, paragraphs and bootstrap contribs with composer
-composer require drupal/admin_toolbar drupal/paragraphs drupal/bootstrap
-# Enable the modules
-drush en -y admin_toolbar paragraphs
+# Create the new subtheme by copying the SASS Starterkit in the Bootstrap contrib theme
+cd web/themes
+mkdir custom
+cp -rp contrib/bootstrap/starterkits/sass custom/blog
+cd custom/blog
+
+# Rename all mandatory files
+mv THEMENAME.starterkit.yml blog.info.yml
+mv THEMENAME.libraries.yml blog.libraries.yml
+mv THEMENAME.theme blog.theme
+mv config/install/THEMENAME.settings.yml config/install/blog.settings.yml
+mv config/schema/THEMENAME.schema.yml config/schema/blog.schema.yml
+
+# Setting the metadata information of our new theme.
+> Edit `blog.info.yml` and change all variables needed (name, description, libraries,..)
+> Edit `config/schema/blog.schema.yml` and change all variables needed (settings, description)
+> Optionally replace the logo.svg and screenshot.png
+```
+
+## 1.2 Enable the Blog theme
+```
+# Enable blog theme
+drush theme:enable blog
+# Set the theme as default.
+drush config-set system.theme default blog
 ```
 
 
 ## Remarks
 
 ```
- - Observe the new modules that are located under web/modules/contrib
- - Observe the new theme that is located under web/themes/contrib
- - Observe the changes in the composer.json and composer.lock file
- - Observe the paragraphs and admin_toolbar functionality on the website
+ - See web/themes/contrib/bootstrap/docs/Sub-Theming.md for more information about sub theming.
+ - Observe that boostrap and the blog theme is detected under /admin/appearance
+ - After setting Blog our website is now differently styled (not great though yet).
 ```
 
 ---
