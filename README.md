@@ -1,33 +1,28 @@
-# 5. Adding a new paragraph type
+# 6. 
 
-We want to achieve some dynamic editable pages for content editors. So we will make our pages with paragraphs.
+We can do a lot of interesting things with twig.
 
-## 5.1 Creating a new paragraph 'Two Column Text'
+## 6.1 Using twig variables
 ```
-# Go to /admin/structure/paragraphs_type and create the new paragraph
-# Add 2 new fields `First column` and `Second column` (Text formatted, long)
-# Hide the labels on the 'manage display' tab
-# Now go to /admin/structure/types/manage/page/fields
-# Add a new field `Content` to the `Basic page` content type (paragraphs field)
-# Make sure it show not showing the label in the 'manage display' tab
-
-```
-
-## 5.2 Overwriting the default paragraph template to support our 2 columns
-```
-# Copy the contrib paragraph template to our theme
+# Let us play with some variables in /node/1
+# Let us overwrite that template for demo purposes
 cd web/themes/custom/blog/templates
-cp ../../../../modules/contrib/paragraphs/templates/paragraph.html.twig .
+cp ../../../../core/modules/node/templates/node.html.twig node--1.html.twig
 drush cr
-# However we would want to be more specific
-mv paragraph.html.twig paragraph--two-column-text.html.twig
+# What is common twig syntax?
+{{ print something }}
+{% do something %}
+{# a comment #}
+
+
 ```
 
 ## Remarks
 
 ```
- - Observe after copying the template that the HTML Inspector comment will now point to the template in our theme
- - We can override the template and be more specific too.
+ - Overriding templates by ID is never a good idea, we do this for demo purposes.
+   As these can change per environment.
+ - See https://www.drupal.org/docs/8/theming/twig/discovering-and-inspecting-variables-in-twig-templates
 ```
 
 ---
@@ -41,7 +36,7 @@ cd htdocs/web
 ### I can not follow anymore
 
 ```
-git checkout 5
+git checkout 6
 docker-compose exec php bash
 cd htdocs
 composer install
