@@ -33,8 +33,9 @@ cd htdocs/web
 ```
 git checkout 1
 docker-compose exec php bash
-cd htdocs/web
+cd htdocs
 composer install
+cd web
 drush sql-drop -y
 drush sql-cli < ../../db/dump.sql
 drush cr
