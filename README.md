@@ -2,7 +2,7 @@
 
 We need to create a subtheme from the contrib Bootstrap theme we just downloaded.
 
-## 1.1 Creating the subtheme
+## 2.1 Creating the subtheme
 ```
 # Create the new subtheme by copying the SASS Starterkit in the Bootstrap contrib theme
 cd web/themes
@@ -23,7 +23,16 @@ mv config/schema/THEMENAME.schema.yml config/schema/blog.schema.yml
 > Optionally replace the logo.svg and screenshot.png
 ```
 
-## 1.2 Enable the Blog theme
+## 2.2 Add the latest bootstrap assets to blog 
+```
+cd web/themes/custom/blog/scss
+wget https://github.com/twbs/bootstrap-sass/archive/master.zip
+unzip master
+mkdir bootstrap
+cp -rp bootstrap-sass-master/assets bootstrap/
+```
+
+## 2.3 Enable the Blog theme
 ```
 # Enable blog theme
 drush theme:enable blog
