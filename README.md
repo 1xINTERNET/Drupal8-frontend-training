@@ -1,4 +1,4 @@
-# 6. 
+# 6. Using twig for frontend
 
 We can do a lot of interesting things with twig.
 
