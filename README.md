@@ -1,69 +1,33 @@
-# 4. Adding preprocessors
+# 5. Adding a new paragraph type
 
-For frontend development we will need some additional tools E.g. sass preprocessor.
+We want to achieve some dynamic editable pages for content editors. So we will make our pages with paragraphs.
 
-## 4.1 Adding npm packages and configuration
+## 5.1 Creating a new paragraph 'Two Column Text'
 ```
-cd web/themes/custom/blog
-# First initialize a package.json (we can go for default values here).
-npm init
-# Install laravel-mix as package to the theme
-npm install laravel-mix
-# Now we set the webpack settings to compile
-vim webpack.mix.js
-# Add the following content:
-```
+# Go to /admin/structure/paragraphs_type and create the new paragraph
+# Add 2 new fields `First column` and `Second column` (Text formatted, long)
+# Hide the labels on the 'manage display' tab
+# Now go to /admin/structure/types/manage/page/fields
+# Add a new field `Content` to the `Basic page` content type (paragraphs field)
+# Make sure it show not showing the label in the 'manage display' tab
 
 ```
-let mix = require('laravel-mix');
-mix.sass('scss/style.scss', 'css/');
-mix.options({
-  processCssUrls: false
-});
-```
 
-## 4.2 Editing the package.json to support our custom needed scripts.
-
+## 5.2 Overwriting the default paragraph template to support our 2 columns
 ```
-# Edit the package.json and replace the following attribute:
-"scripts": {
-  "dev": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-  "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-  "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-  "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-},
-```
-
-
-## 4.3 A small change
-```
-cd web/themes/custom/blog/scss/style.scss
-# Change the following line
-@import '../bootstrap/assets/stylesheets/bootstrap';
-# into:
-@import 'bootstrap/assets/stylesheets/bootstrap';
-```
-
-
-## 4.4 Running the scripts
-```
-npm run watch
- - OR -
-npm run production
+# Copy the contrib paragraph template to our theme
+cd web/themes/custom/blog/templates
+cp ../../../../modules/contrib/paragraphs/templates/paragraph.html.twig .
 drush cr
-```
-
-## 4.5 Additional settings for the cache (developer settings)
-```
-# Add the following to the settings.php
-$settings['cache']['bins']['render'] = 'cache.backend.null';
-$settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';
+# However we would want to be more specific
+mv paragraph.html.twig paragraph--two-column-text.html.twig
 ```
 
 ## Remarks
 
 ```
- - See https://www.webwash.net/getting-started-bootstrap-drupal-8/#compile-sass for more information
+ - Observe after copying the template that the HTML Inspector comment will now point to the template in our theme
+ - We can override the template and be more specific too.
 ```
 
 ---
