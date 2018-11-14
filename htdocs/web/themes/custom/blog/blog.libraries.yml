@@ -1,8 +1,12 @@
 framework:
   css:
     theme:
+      //cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css: { type: external }
+      //cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css: { type: external }
       css/style.css: {}
   js:
+    //cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js: { type: external, minified: true }
+    js/blog.js: {}
     bootstrap/assets/javascripts/bootstrap/affix.js: {}
     bootstrap/assets/javascripts/bootstrap/alert.js: {}
     bootstrap/assets/javascripts/bootstrap/button.js: {}

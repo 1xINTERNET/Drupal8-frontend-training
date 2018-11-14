@@ -1,64 +1,61 @@
-# 8. Adding a multicolumn image paragraph
+# 9. Adding a javascript image slider
 
-We will add a multicolumn image paragraph to extend our blog pages.
+Javascript can also be added in our theme.
 
-## 8.1 Adding a new paragraph
+## 9.1 Adding a new slider paragraph
 ```
-# We add a new paragraph `image`
-# Add a new image field `image`.
-# Add a new list integer field 'Number columns' with values 2,3,4
-# Add the following snippet to the blog.theme
+# Create a new 'Slider' paragraph on /admin/structure/paragraphs_type
+# Add a new image field 'Image' (unlimited images)
+# Hide the label on the 'Manage display' tab
+# Create a new page with the new slider paragraph with a few images
+```
+
+## 9.2 Adding slider assets to the blog theme
+```
+# Add the following to the blog.libraries.yml file
+framework:
+  css:
+    theme:
+      //cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css: { type: external }
+      //cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css: { type: external }
+  js:
+    //cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js: { type: external, minified: true }
+    js/blog.js: {}
+```
+
+## 9.3 Adding slider assets to the blog theme
+```
+# Add the following file to our subtheme 'js/blog.js'
 ```
 
 ```
-  $type = $variables['paragraph']->getType();
-  // Preprocess the image paragraph.
-  if ($type == 'image') {
-    $col_style = 'col-md-12';
-    $number_of_columns = $variables['paragraph']->field_number_columns->value;
-    switch($number_of_columns) {
-      case 2:
-        $col_style = 'col-md-6';
-        break;
-      case 3:
-        $col_style = 'col-md-4';
-        break;
-      case 4:
-        $col_style = 'col-md-3';
-        break;
+/**
+ * Blog javascript.
+ */
+
+(function ($, Drupal) {
+
+    /**
+     * Enables the slick slider.
+     */
+    Drupal.behaviors.slider = {
+        attach: function(context, settings) {
+            $('.paragraph--type--slider .field--items').slick({
+              dots: true,
+              infinite: true,
+              arrows: false
+            });
+        }
     }
-    $variables['content']['colStyle'] = $col_style;
-  }
-```
-
-```
-# Overwrite the paragraph template for the image paragraph type:
-```
-
-```
-{%
-  set classes = [
-    'paragraph',
-    'paragraph--type--' ~ paragraph.bundle|clean_class,
-    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-    not paragraph.isPublished() ? 'paragraph--unpublished'
-  ]
-%}
-{% block paragraph %}
-  <div{{ attributes.addClass(classes) }}>
-    <div class="row">
-      {% for i in 0..content.field_image['#items']|length-1 %}
-        <div class="{{ content.colStyle }}">{{ content.field_image[i] }}</div>
-      {% endfor %}
-    </div>
-  </div>
-{% endblock paragraph %}
+}) (jQuery, Drupal);
 ```
 
 ## Remarks
 
 ```
- - none
+ - Observe the URL agnostic writing
+ - Observe we are using external javascript files and stylesheets
+ - Observe the usage of behaviors in Drupal javascript
 ```
 
 ---
@@ -72,7 +69,7 @@ cd htdocs/web
 ### I can not follow anymore
 
 ```
-git checkout 8
+git checkout 9
 docker-compose exec php bash
 cd htdocs
 composer install
