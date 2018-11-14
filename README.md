@@ -1,33 +1,64 @@
-# 7. Modifying attributes in a theme file
+# 8. Adding a multicolumn image paragraph
 
-Sometimes we need to preprocess variables before rendering them to twig.
+We will add a multicolumn image paragraph to extend our blog pages.
 
-## 7.1 Adding a paragraph preprocess function
+## 8.1 Adding a new paragraph
 ```
-# Open the blog.theme file
-Add the following snippet
+# We add a new paragraph `image`
+# Add a new image field `image`.
+# Add a new list integer field 'Number columns' with values 2,3,4
+# Add the following snippet to the blog.theme
 ```
 
 ```
-/**
- * Implements hook_preprocess_paragraph().
- */
-function blog_preprocess_paragraph(&$variables) {
-  // Preprocess two column text paragraph.
-  drupal_set_message(print_r(array_keys($variables), true));
-  drupal_set_message(print_r(array_keys($variables['content']), true));
   $type = $variables['paragraph']->getType();
-  drupal_set_message($type);
-  if ($type == 'two_column_text') {
-    $variables['content']['message'] = t('Hello World');
+  // Preprocess the image paragraph.
+  if ($type == 'image') {
+    $col_style = 'col-md-12';
+    $number_of_columns = $variables['paragraph']->field_number_columns->value;
+    switch($number_of_columns) {
+      case 2:
+        $col_style = 'col-md-6';
+        break;
+      case 3:
+        $col_style = 'col-md-4';
+        break;
+      case 4:
+        $col_style = 'col-md-3';
+        break;
+    }
+    $variables['content']['colStyle'] = $col_style;
   }
-}
+```
+
+```
+# Overwrite the paragraph template for the image paragraph type:
+```
+
+```
+{%
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    <div class="row">
+      {% for i in 0..content.field_image['#items']|length-1 %}
+        <div class="{{ content.colStyle }}">{{ content.field_image[i] }}</div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock paragraph %}
 ```
 
 ## Remarks
 
 ```
- - See https://www.drupal.org/docs/8/theming-drupal-8/modifying-attributes-in-a-theme-file
+ - none
 ```
 
 ---
@@ -41,7 +72,7 @@ cd htdocs/web
 ### I can not follow anymore
 
 ```
-git checkout 7
+git checkout 8
 docker-compose exec php bash
 cd htdocs
 composer install
