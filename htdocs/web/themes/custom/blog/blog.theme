@@ -12,11 +12,29 @@
  */
 function blog_preprocess_paragraph(&$variables) {
   // Preprocess two column text paragraph.
-  drupal_set_message(print_r(array_keys($variables), true));
-  drupal_set_message(print_r(array_keys($variables['content']), true));
+  //drupal_set_message(print_r(array_keys($variables), true));
+  //drupal_set_message(print_r(array_keys($variables['content']), true));
   $type = $variables['paragraph']->getType();
-  drupal_set_message($type);
+  //drupal_set_message($type);
   if ($type == 'two_column_text') {
     $variables['content']['message'] = t('Hello World');
+  }
+  $type = $variables['paragraph']->getType();
+  // Preprocess the image paragraph.
+  if ($type == 'image') {
+    $col_style = 'col-md-12';
+    $number_of_columns = $variables['paragraph']->field_number_columns->value;
+    switch($number_of_columns) {
+      case 2:
+        $col_style = 'col-md-6';
+        break;
+      case 3:
+        $col_style = 'col-md-4';
+        break;
+      case 4:
+        $col_style = 'col-md-3';
+        break;
+    }
+    $variables['content']['colStyle'] = $col_style;
   }
 }
