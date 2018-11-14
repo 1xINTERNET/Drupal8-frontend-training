@@ -1,74 +1,29 @@
-# Demo website
+# 1. Basic setup
 
-## Docker setup
-
-### Requirements
-
+## 1.1 Installation of useful modules
 ```
-- docker and docker-compose
-- composer
-- npm
-- node
-```
-
-## Steps
-
-```
-# Go into ./htdocs and install all composer dependencies.
-composer install --ignore-platform-reqs
-# Start the docker project.
-docker-compose up -d
-# Check the logs for info and warnings when working on the project.
-docker-compose logs -f
-# When the database has been imported (view logs):
-# Go to http://demo.localhost/
+# Install the admin_toolbar and paragraphs contrib module with composer
+composer require drupal/admin_toolbar drupal/paragraphs --ignore-platform-reqs
+# Enable the modules
+-> Get in to the PHP container first if you are using docker:
+--> docker-compose exec php bash
+--> cd htdocs/web
+drush en -y admin_toolbar paragraphs
 ```
 
-## Credentials 
-
-```
-User: demo
-Pass: demo
-```
-
-## Useful docker commands
-
-```
-# Access the PHP container
-docker-compose exec php sh
-# View the logs
-docker-compose logs -f
-# Start all containers
-docker-compose up -d
-# Stop all docker containers
-docker-compose stop
-# Remove all containers
-docker-compose down
-Pass: demo
-```
-
-## Development services
-
-```
-# Mailhog
-http://mailhog.drupal.docker.localhost/
-# Portainer
-http://portainer.drupal.docker.localhost/
-# PhpMyAdmin
-http://pma.drupal.docker.localhost/#/home
-```
 
 ## Remarks
 
 ```
-This project is for demo purposes only. 
-We put the db/files/private folders and settings.php into the repository. 
-Do not do this for your production website. 
+ - If you are using the docker stack provided, remember the commands above. 
+   They will need not be repeated anymore. Write them down.
+ - Observe the paragraphs and admin_toolbar functionality on the website.
 ```
 
-## How to use this repository
+## I can not follow anymore.
 
 ```
-Follow the steps written in the README.md
-Continue on with checking out further tags to continue
+docker-compose exec php bash
+cd htdocs/web
+
 ```
