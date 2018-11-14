@@ -14,6 +14,7 @@ drush en -y admin_toolbar paragraphs
 ```
  - Observe the new modules that are located under web/modules/contrib
  - Observe the new theme that is located under web/themes/contrib
+ - Observe the changes in the composer.json and composer.lock file
  - Observe the paragraphs and admin_toolbar functionality on the website
 ```
 
