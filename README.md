@@ -1,22 +1,38 @@
-# 3. Setup developer settings
+# 4. Adding preprocessors
 
-For easier frontend development we will setup the Drupal website with developer settings.
+For frontend development we will need some additional tools E.g. sass preprocessor.
 
-## 3.1 Setting developer settings
+## 4.1 Adding npm packages and configuration
 ```
-chmod -w web/sites/default
-drush site:mode dev
-chmod +w web/sites/default
+cd web/themes/custom/blog
+# First initialize a package.json (we can go for default values here).
+npm init
+# Install laravel-mix as package to the theme
+npm install laravel-mix
+# Now we set the webpack settings to compile
+vim webpack.mix.js
+# Add the following content:
 ```
 
+```
+let mix = require('laravel-mix');
+mix.sass('scss/style.scss', 'css/');
+mix.options({
+  processCssUrls: false
+});
+```
+
+## 4.1 Adding npm packages and configuration
+
+```
+
+```
 
 ## Remarks
 
 ```
- - See https://www.drupal.org/node/2598914 for more information
- - Observe the HTML Inspector now contains remarks.
- - For learning purposes we commit these changes in our repository.
-   It speaks for itself that these changes should not be committed for your production usage.
+ - See https://www.webwash.net/getting-started-bootstrap-drupal-8/#compile-sass for more information
+
 ```
 
 ---
