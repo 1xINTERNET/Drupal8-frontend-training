@@ -2,8 +2,8 @@
 
 ## 1.1 Installation of useful modules
 ```
-# Install the admin_toolbar and paragraphs contrib module with composer
-composer require drupal/admin_toolbar drupal/paragraphs --ignore-platform-reqs
+# Install the admin_toolbar, paragraphs and bootstrap contribs with composer
+composer require drupal/admin_toolbar drupal/paragraphs drupal/bootstrap --ignore-platform-reqs
 # Enable the modules
 drush en -y admin_toolbar paragraphs
 ```
@@ -12,9 +12,9 @@ drush en -y admin_toolbar paragraphs
 ## Remarks
 
 ```
- - If you are using the docker stack provided, remember the commands above. 
-   They will need not be repeated anymore. Write them down.
- - Observe the paragraphs and admin_toolbar functionality on the website.
+ - Observe the new modules that are located under web/modules/contrib
+ - Observe the new theme that is located under web/themes/contrib
+ - Observe the paragraphs and admin_toolbar functionality on the website
 ```
 
 ---
