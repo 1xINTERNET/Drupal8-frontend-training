@@ -34,7 +34,18 @@ mix.options({
 },
 ```
 
-## 4.3 Running the scripts
+
+## 4.3 A small change
+```
+cd web/themes/custom/blog/scss/style.scss
+# Change the following line
+@import '../bootstrap/assets/stylesheets/bootstrap';
+# into:
+@import 'bootstrap/assets/stylesheets/bootstrap';
+```
+
+
+## 4.4 Running the scripts
 ```
 npm run watch
  - OR -
@@ -42,7 +53,7 @@ npm run production
 drush cr
 ```
 
-## 4.4 Additional settings for the cache (developer settings)
+## 4.5 Additional settings for the cache (developer settings)
 ```
 # Add the following to the settings.php
 $settings['cache']['bins']['render'] = 'cache.backend.null';
