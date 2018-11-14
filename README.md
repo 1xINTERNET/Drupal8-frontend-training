@@ -5,9 +5,6 @@
 # Install the admin_toolbar and paragraphs contrib module with composer
 composer require drupal/admin_toolbar drupal/paragraphs --ignore-platform-reqs
 # Enable the modules
--> Get in to the PHP container first if you are using docker:
---> docker-compose exec php bash
---> cd htdocs/web
 drush en -y admin_toolbar paragraphs
 ```
 
@@ -20,10 +17,20 @@ drush en -y admin_toolbar paragraphs
  - Observe the paragraphs and admin_toolbar functionality on the website.
 ```
 
-## I can not follow anymore.
+---
+
+### Go inside the container
+```
+docker-compose exec php bash
+cd htdocs/web
+```
+
+### I can not follow anymore
 
 ```
 docker-compose exec php bash
 cd htdocs/web
-
+drush sql-drop -y
+drush sql-cli < ../../db/dump.sql
+drush cr
 ```
