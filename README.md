@@ -22,17 +22,37 @@ mix.options({
 });
 ```
 
-## 4.1 Adding npm packages and configuration
+## 4.2 Editing the package.json to support our custom needed scripts.
 
 ```
+# Edit the package.json and replace the following attribute:
+"scripts": {
+  "dev": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+  "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+  "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+  "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+},
+```
 
+## 4.3 Running the scripts
+```
+npm run watch
+ - OR -
+npm run production
+drush cr
+```
+
+## 4.4 Additional settings for the cache (developer settings)
+```
+# Add the following to the settings.php
+$settings['cache']['bins']['render'] = 'cache.backend.null';
+$settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';
 ```
 
 ## Remarks
 
 ```
  - See https://www.webwash.net/getting-started-bootstrap-drupal-8/#compile-sass for more information
-
 ```
 
 ---
