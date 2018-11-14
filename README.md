@@ -51,7 +51,7 @@ cd htdocs/web
 ### I can not follow anymore
 
 ```
-git checkout 1
+git checkout 2
 docker-compose exec php bash
 cd htdocs/web
 composer install
