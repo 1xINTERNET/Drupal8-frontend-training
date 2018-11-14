@@ -77,7 +77,7 @@ cd htdocs/web
 ### I can not follow anymore
 
 ```
-git checkout 3
+git checkout 4
 docker-compose exec php bash
 cd htdocs
 composer install
@@ -85,4 +85,6 @@ cd web
 drush sql-drop -y
 drush sql-cli < ../../db/dump.sql
 drush cr
+cd themes/custom/blog
+npm run production
 ```
